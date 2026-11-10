@@ -1,9 +1,9 @@
-# TaskFlow
+﻿# TaskFlow
 
 A full-stack task manager: **ASP.NET Core (.NET 10) API** + **React / TypeScript** frontend, backed by PostgreSQL.
 Users register, create projects, and manage tasks on a list or kanban board with filtering, search, sorting and paging. Admins get a user/stats overview.
 
-[![CI]([../../actions/workflows/ci.yml/badge.svg](https://github.com/damifdev/TaskFlow/actions/workflows/ci.yml/badge.svg))]([../../actions/workflows/ci.yml](https://github.com/damifdev/TaskFlow/actions/workflows/ci.yml))
+[![CI](https://github.com/damifdev/TaskFlow/actions/workflows/ci.yml/badge.svg)](https://github.com/damifdev/TaskFlow/actions/workflows/ci.yml)
 
 ## Features
 
@@ -20,12 +20,12 @@ Users register, create projects, and manage tasks on a list or kanban board with
 
 ```
 frontend/ (React 19, Vite, TanStack Query)
-    │  /api  (nginx or Vite proxy)
-    ▼
+    â”‚  /api  (nginx or Vite proxy)
+    â–¼
 TaskFlow.Api            controllers, auth, middleware, filters, DI wiring
-    ├─► TaskFlow.Application     use-case services, DTOs, validators, abstractions
-    │        └─► TaskFlow.Domain          entities and enums (no dependencies)
-    └─► TaskFlow.Infrastructure  EF Core / PostgreSQL, JWT, password hashing
+    â”œâ”€â–º TaskFlow.Application     use-case services, DTOs, validators, abstractions
+    â”‚        â””â”€â–º TaskFlow.Domain          entities and enums (no dependencies)
+    â””â”€â–º TaskFlow.Infrastructure  EF Core / PostgreSQL, JWT, password hashing
 ```
 
 Dependencies point inward: the Application layer only knows an `IAppDbContext` abstraction, which keeps services unit-testable with an in-memory database.
@@ -62,10 +62,10 @@ Turn `Seed__Enabled` off for any real deployment.
 Prerequisites: .NET 10 SDK, Node 22+, PostgreSQL (or `docker compose up db`).
 
 ```bash
-# API  → http://localhost:5080  (Swagger at /swagger; dev DB + JWT key come from appsettings.Development.json)
+# API  â†’ http://localhost:5080  (Swagger at /swagger; dev DB + JWT key come from appsettings.Development.json)
 dotnet run --project src/TaskFlow.Api
 
-# Frontend → http://localhost:5173  (proxies /api to the API)
+# Frontend â†’ http://localhost:5173  (proxies /api to the API)
 cd frontend && npm install && npm run dev
 ```
 
