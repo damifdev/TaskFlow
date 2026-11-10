@@ -1,0 +1,29 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+TestResults/
+coverage/
+*.log
+launchSettings.local.json
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+frontend/coverage/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+secrets.json
+
+# OS
+.DS_Store
+Thumbs.db

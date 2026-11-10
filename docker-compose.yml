@@ -1,0 +1,51 @@
+# Runs the whole stack:  cp .env.example .env  &&  docker compose up --build
+#   Web app      http://localhost:3000
+#   API + docs   http://localhost:8080/swagger
+#   PostgreSQL   localhost:5432
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: taskflow
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-taskflow}
+      POSTGRES_DB: taskflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskflow -d taskflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: src/TaskFlow.Api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Trust X-Forwarded-* from the nginx container so rate limiting sees real client IPs.
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      ConnectionStrings__Default: Host=db;Port=5432;Database=taskflow;Username=taskflow;Password=${POSTGRES_PASSWORD:-taskflow}
+      Jwt__Key: ${JWT_KEY:?Set JWT_KEY in .env (copy .env.example)}
+      Swagger__Enabled: "true"
+      # Demo data for local runs. Turn both off for a real deployment.
+      Seed__Enabled: "true"
+      Seed__AdminPassword: ${SEED_ADMIN_PASSWORD:-}
+    ports:
+      - "8080:8080"
+
+  web:
+    build: ./frontend
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  pgdata:

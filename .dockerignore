@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.vs/
+**/.idea/
+.git/
+.github/
+tests/
+coverage/
+.env
+.env.*
+*.md
