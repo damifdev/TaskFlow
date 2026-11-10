@@ -3,7 +3,7 @@
 A full-stack task manager: **ASP.NET Core (.NET 10) API** + **React / TypeScript** frontend, backed by PostgreSQL.
 Users register, create projects, and manage tasks on a list or kanban board with filtering, search, sorting and paging. Admins get a user/stats overview.
 
-[![CI](../../actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
+[![CI]([../../actions/workflows/ci.yml/badge.svg](https://github.com/damifdev/TaskFlow/actions/workflows/ci.yml/badge.svg))]([../../actions/workflows/ci.yml](https://github.com/damifdev/TaskFlow/actions/workflows/ci.yml))
 
 ## Features
 
